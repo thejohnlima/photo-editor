@@ -9,13 +9,16 @@
 import UIKit
 
 public final class PhotoEditorViewController: UIViewController {
-    
+
+    // MARK: - Properties
     /** holding the 2 imageViews original image and drawing & stickers */
     @IBOutlet weak var canvasView: UIView!
-    //To hold the image
+
+    /// To hold the image
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
-    //To hold the drawings and stickers
+
+    /// To hold the drawings and stickers
     @IBOutlet weak var canvasImageView: UIImageView!
 
     @IBOutlet weak var topToolbar: UIView!
@@ -30,7 +33,7 @@ public final class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var colorPickerView: UIView!
     @IBOutlet weak var colorPickerViewBottomConstraint: NSLayoutConstraint!
     
-    //Controls
+    // Controls
     @IBOutlet weak var cropButton: UIButton!
     @IBOutlet weak var stickerButton: UIButton!
     @IBOutlet weak var drawButton: UIButton!
@@ -40,19 +43,19 @@ public final class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var clearButton: UIButton!
     
     public var image: UIImage?
+
     /**
      Array of Stickers -UIImage- that the user will choose from
      */
-    public var stickers : [UIImage] = []
+    public var stickers: [UIImage] = []
+
     /**
      Array of Colors that will show while drawing or typing
      */
-    public var colors  : [UIColor] = []
-    
+    public var colors: [UIColor] = []
     public var photoEditorDelegate: PhotoEditorDelegate?
-    var colorsCollectionViewDelegate: ColorsCollectionViewDelegate!
     
-    // list of controls to be hidden
+    /// list of controls to be hidden
     public var hiddenControls : [control] = []
     
     var stickersVCIsVisible = false
@@ -68,16 +71,21 @@ public final class PhotoEditorViewController: UIViewController {
     var activeTextView: UITextView?
     var imageViewToPan: UIImageView?
     var isTyping: Bool = false
-    
-    
-    var stickersViewController: StickersViewController!
 
-    //Register Custom font before we load XIB
-    public override func loadView() {
-        registerFont()
-        super.loadView()
+    var stickersViewController: StickersViewController!
+    var colorsCollectionViewDelegate: ColorsCollectionViewDelegate!
+
+    // MARK: - Initializers
+    public init() {
+      let bundle = Bundle(for: PhotoEditorViewController.self)
+      super.init(nibName: "PhotoEditorViewController", bundle: bundle)
     }
-    
+
+    required init?(coder: NSCoder) {
+      super.init(coder: coder)
+    }
+
+    // MARK: - View LifeCycle
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.setImageView(image: image!)
@@ -90,39 +98,61 @@ public final class PhotoEditorViewController: UIViewController {
         let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
         edgePan.edges = .bottom
         edgePan.delegate = self
-        self.view.addGestureRecognizer(edgePan)
+
+        view.addGestureRecognizer(edgePan)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
-                                               name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self,selector: #selector(keyboardWillChangeFrame(_:)),
-                                               name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        
-        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardDidShow),
+                                               name: UIResponder.keyboardDidShowNotification,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillChangeFrame(_:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
+                                               object: nil)
+
+        let bundle = Bundle(for: StickersViewController.self)
+
         configureCollectionView()
-        stickersViewController = StickersViewController(nibName: "StickersViewController", bundle: Bundle(for: StickersViewController.self))
+        stickersViewController = StickersViewController(nibName: "StickersViewController", bundle: bundle)
         hideControls()
     }
-    
+
+    // MARK: - Overrides
+    // Register Custom font before we load XIB
+    public override func loadView() {
+        registerFont()
+        super.loadView()
+    }
+
+    // MARK: - Internal Methods
     func configureCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 30, height: 30)
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
+
         colorsCollectionView.collectionViewLayout = layout
         colorsCollectionViewDelegate = ColorsCollectionViewDelegate()
         colorsCollectionViewDelegate.colorDelegate = self
+
         if !colors.isEmpty {
             colorsCollectionViewDelegate.colors = colors
         }
+
         colorsCollectionView.delegate = colorsCollectionViewDelegate
         colorsCollectionView.dataSource = colorsCollectionViewDelegate
         
         colorsCollectionView.register(
             UINib(nibName: "ColorCollectionViewCell", bundle: Bundle(for: ColorCollectionViewCell.self)),
-            forCellWithReuseIdentifier: "ColorCollectionViewCell")
+            forCellWithReuseIdentifier: "ColorCollectionViewCell"
+        )
     }
     
     func setImageView(image: UIImage) {
@@ -139,18 +169,14 @@ public final class PhotoEditorViewController: UIViewController {
     }
 }
 
+// MARK: - ColorDelegate
 extension PhotoEditorViewController: ColorDelegate {
     func didSelectColor(color: UIColor) {
         if isDrawing {
-            self.drawColor = color
+            drawColor = color
         } else if activeTextView != nil {
             activeTextView?.textColor = color
             textColor = color
         }
     }
 }
-
-
-
-
-
