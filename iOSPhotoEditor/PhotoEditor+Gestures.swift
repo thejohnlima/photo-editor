@@ -16,7 +16,7 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
   @objc func panGesture(_ recognizer: UIPanGestureRecognizer) {
     if let view = recognizer.view {
       if view is UIImageView {
-        //Tap only on visible parts on the image
+        // Tap only on visible parts on the image
         if recognizer.state == .began {
           for imageView in subImageViews(view: canvasImageView) {
             let location = recognizer.location(in: imageView)
@@ -202,10 +202,14 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
           let generator = UINotificationFeedbackGenerator()
           generator.notificationOccurred(.success)
         }
-      } else if !canvasImageView.bounds.contains(view.center) { //Snap the view back to canvasImageView
+      } else if !canvasImageView.bounds.contains(view.center) { // Snap the view back to canvasImageView
         UIView.animate(withDuration: 0.3, animations: {
           view.center = self.canvasImageView.center
         })
+      }
+
+      if view is UITextView, view.isFirstResponder, !bottomToolbar.isHidden, !colorPickerView.isHidden {
+        view.endEditing(true)
       }
     }
   }

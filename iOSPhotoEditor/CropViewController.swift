@@ -84,7 +84,7 @@ open class CropViewController: UIViewController {
   open override func loadView() {
     let contentView = UIView()
     contentView.autoresizingMask = .flexibleWidth
-    contentView.backgroundColor = UIColor.black
+    contentView.backgroundColor = .systemGroupedBackground
     view = contentView
 
     // Add CropView
@@ -95,8 +95,8 @@ open class CropViewController: UIViewController {
   open override func viewDidLoad() {
     super.viewDidLoad()
 
-    navigationController?.navigationBar.isTranslucent = false
-    navigationController?.toolbar.isTranslucent = false
+    navigationController?.navigationBar.isTranslucent = true
+    navigationController?.toolbar.isTranslucent = true
     navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(_:)))
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done(_:)))
 

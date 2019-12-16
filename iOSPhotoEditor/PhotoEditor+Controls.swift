@@ -20,7 +20,7 @@ public enum control {
 }
 
 extension PhotoEditorViewController {
-  // MARK: - Top Toolbar
+  // MARK: - Actions
   @IBAction func cancelButtonTapped(_ sender: Any) {
     photoEditorDelegate?.canceledEditing()
     self.dismiss(animated: true)
@@ -47,28 +47,14 @@ extension PhotoEditorViewController {
   }
 
   @IBAction func textButtonTapped(_ sender: Any) {
+    let accessoryView = colorPickerVisualEffectView
+    accessoryView.frame.size.height = 48
+    accessoryView.frame.origin = .zero
+
+    let textView = self.textView
+    textView.inputAccessoryView = accessoryView
+
     isTyping = true
-
-    let frame = CGRect(
-      x: 0,
-      y: canvasImageView.center.y,
-      width: UIScreen.main.bounds.width,
-      height: 30
-    )
-
-    let textView = UITextView(frame: frame)
-    textView.textAlignment = .center
-    textView.font = .systemFont(ofSize: 30)
-    textView.textColor = textColor
-    textView.layer.shadowColor = UIColor.black.cgColor
-    textView.layer.shadowOffset = CGSize(width: 1.0, height: 0.0)
-    textView.layer.shadowOpacity = 0.2
-    textView.layer.shadowRadius = 1.0
-    textView.layer.backgroundColor = UIColor.clear.cgColor
-    textView.autocorrectionType = .no
-    textView.isScrollEnabled = false
-    textView.delegate = self
-
     canvasImageView.addSubview(textView)
     addGestures(view: textView)
 
@@ -84,7 +70,6 @@ extension PhotoEditorViewController {
     isDrawing = false
   }
 
-  //MARK: - Bottom Toolbar
   @IBAction func saveButtonTapped(_ sender: AnyObject) {
     UIImageWriteToSavedPhotosAlbum(
       canvasView.toImage(),
@@ -114,7 +99,7 @@ extension PhotoEditorViewController {
     dismiss(animated: true)
   }
 
-  // MAKR: - helper methods
+  // MAKR: - Internal methods
   @objc
   func image(_ image: UIImage, withPotentialError error: NSErrorPointer, contextInfo: UnsafeRawPointer) {
     let alert = UIAlertController(

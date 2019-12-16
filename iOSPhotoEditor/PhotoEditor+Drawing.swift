@@ -10,6 +10,9 @@ import UIKit
 
 extension PhotoEditorViewController {
   override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    let fields = canvasImageView.subviews.filter { $0 is UITextView }
+    let hasFieldEditing = fields.first { $0.isFirstResponder } != nil
+
     if isDrawing {
       swiped = false
       if let touch = touches.first {
@@ -22,6 +25,8 @@ extension PhotoEditorViewController {
           removeStickersView()
         }
       }
+    } else if hasFieldEditing {
+      view.endEditing(true)
     }
   }
 
