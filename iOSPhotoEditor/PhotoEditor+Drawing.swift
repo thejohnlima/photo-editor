@@ -55,22 +55,25 @@ extension PhotoEditorViewController {
   func drawLineFrom(_ fromPoint: CGPoint, toPoint: CGPoint) {
     // 1
     let canvasSize = canvasImageView.frame.integral.size
+
     UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0)
+
     if let context = UIGraphicsGetCurrentContext() {
       canvasImageView.image?.draw(in: CGRect(x: 0, y: 0, width: canvasSize.width, height: canvasSize.height))
       // 2
       context.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y))
       context.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
       // 3
-      context.setLineCap( CGLineCap.round)
+      context.setLineCap(.round)
       context.setLineWidth(5.0)
       context.setStrokeColor(drawColor.cgColor)
-      context.setBlendMode( CGBlendMode.normal)
+      context.setBlendMode(.normal)
       // 4
       context.strokePath()
       // 5
       canvasImageView.image = UIGraphicsGetImageFromCurrentImageContext()
     }
+
     UIGraphicsEndImageContext()
   }
 }

@@ -51,7 +51,7 @@ public final class PhotoEditorViewController: UIViewController {
   public var hiddenControls : [control] = []
 
   var stickersVCIsVisible = false
-  var drawColor: UIColor = .systemBackground
+  var drawColor: UIColor = .label
   var textColor: UIColor = .label
   var isDrawing: Bool = false
   var lastPoint: CGPoint!
@@ -113,13 +113,10 @@ public final class PhotoEditorViewController: UIViewController {
 
     let textView = UITextView(frame: frame)
     textView.textAlignment = .center
-    textView.font = .systemFont(ofSize: 30)
+    textView.font = .systemFont(ofSize: 32, weight: .medium)
     textView.textColor = textColor
-    textView.layer.shadowColor = UIColor.black.cgColor
-    textView.layer.shadowOffset = CGSize(width: 1.0, height: 0.0)
-    textView.layer.shadowOpacity = 0.2
-    textView.layer.shadowRadius = 1.0
-    textView.layer.backgroundColor = UIColor.clear.cgColor
+    textView.backgroundColor = .clear
+    textView.tintColor = .label
     textView.autocorrectionType = .no
     textView.isScrollEnabled = false
     textView.delegate = self
@@ -196,7 +193,7 @@ public final class PhotoEditorViewController: UIViewController {
 
     colorPickerVisualEffectView.removeFromSuperview()
 
-    colorPickerView.addSubview(colorPickerVisualEffectView)
+    colorPickerView.addSubview(colorsCollectionView)
     colorPickerView.isHidden = true
   }
 
