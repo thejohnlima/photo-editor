@@ -17,7 +17,7 @@ class ColorCollectionViewCell: UICollectionViewCell {
     colorView.layer.cornerRadius = colorView.frame.width / 2
     colorView.clipsToBounds = true
     colorView.layer.borderWidth = 1.0
-    colorView.layer.borderColor = UIColor.white.cgColor
+    colorView.layer.borderColor = UIColor.label.cgColor
   }
 
   override var isSelected: Bool {

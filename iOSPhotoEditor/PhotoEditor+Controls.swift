@@ -94,7 +94,7 @@ extension PhotoEditorViewController {
   }
 
   @IBAction func continueButtonPressed(_ sender: Any) {
-    let img = self.canvasView.toImage()
+    let img = canvasView.toImage()
     photoEditorDelegate?.doneEditing(image: img)
     dismiss(animated: true)
   }

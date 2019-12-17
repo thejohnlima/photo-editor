@@ -19,10 +19,10 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
   var collectioView: UICollectionView!
   var emojisCollectioView: UICollectionView!
   var emojisDelegate: EmojisCollectionViewDelegate!
-  var stickers : [UIImage] = []
-  var stickersViewControllerDelegate : StickersViewControllerDelegate?
+  var stickers: [UIImage] = []
+  var stickersViewControllerDelegate: StickersViewControllerDelegate?
   let screenSize = UIScreen.main.bounds.size
-  let fullView: CGFloat = 100 // remainder of screen height
+  let fullView: CGFloat = 100 // Remainder of screen height
 
   var partialView: CGFloat {
     return UIScreen.main.bounds.height - 380
@@ -39,10 +39,9 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
     scrollView.delegate = self
 
     pageControl.numberOfPages = 2
-
     holdView.layer.cornerRadius = 3
 
-    let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
+    let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
     gesture.delegate = self
 
     view.addGestureRecognizer(gesture)
@@ -118,7 +117,7 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
       height: view.frame.height - 40
     )
 
-    let emojislayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    let emojislayout = UICollectionViewFlowLayout()
     emojislayout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
     emojislayout.itemSize = CGSize(width: 70, height: 70)
 
@@ -160,7 +159,7 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
       var duration =  velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((partialView - y) / velocity.y)
       duration = duration > 1.3 ? 1 : duration
 
-      // velocity is direction of gesture
+      // Velocity is direction of gesture
       UIView.animate(withDuration: duration, delay: 0.0, options: [.allowUserInteraction], animations: {
         if  velocity.y >= 0 {
           if y + translation.y >= self.partialView  {
@@ -210,7 +209,7 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
   }
 
   func prepareBackgroundView(){
-    let blurEffect = UIBlurEffect(style: .light)
+    let blurEffect = UIBlurEffect(style: .systemMaterial)
     let visualEffect = UIVisualEffectView(effect: blurEffect)
 
     let bluredView = UIVisualEffectView(effect: blurEffect)

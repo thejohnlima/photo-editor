@@ -23,7 +23,7 @@ class GradientView: UIView {
 
     gradientLayer.locations = [NSNumber(value: 0.0 as Float), NSNumber(value: 1.0 as Float)]
 
-    backgroundColor = UIColor.clear
+    backgroundColor = .clear
     layer.addSublayer(gradientLayer)
   }
 

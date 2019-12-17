@@ -308,7 +308,7 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
 
   // MARK: - Private methods
   fileprivate func showOverlayView(_ show: Bool) {
-    let color = show ? UIColor(white: 0.0, alpha: 0.4) : UIColor.clear
+    let color = show ? UIColor(white: 0.0, alpha: 0.4) : .clear
 
     topOverlayView.backgroundColor = color
     leftOverlayView.backgroundColor = color

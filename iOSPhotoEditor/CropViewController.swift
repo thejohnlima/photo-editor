@@ -95,8 +95,10 @@ open class CropViewController: UIViewController {
   open override func viewDidLoad() {
     super.viewDidLoad()
 
+    navigationController?.navigationBar.tintColor = .label
     navigationController?.navigationBar.isTranslucent = true
     navigationController?.toolbar.isTranslucent = true
+    navigationController?.toolbar.tintColor = .label
     navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(_:)))
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done(_:)))
 

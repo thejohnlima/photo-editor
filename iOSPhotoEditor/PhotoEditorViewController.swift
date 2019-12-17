@@ -16,14 +16,11 @@ public final class PhotoEditorViewController: UIViewController {
 
   /// To hold the image
   @IBOutlet var imageView: UIImageView!
-  @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
 
   /// To hold the drawings and stickers
   @IBOutlet weak var canvasImageView: UIImageView!
   @IBOutlet weak var topToolbar: UIView!
   @IBOutlet weak var bottomToolbar: UIView!
-  @IBOutlet weak var topGradient: UIView!
-  @IBOutlet weak var bottomGradient: UIView!
   @IBOutlet weak var doneButton: UIButton!
   @IBOutlet weak var deleteView: UIView!
   @IBOutlet weak var colorPickerView: UIView!
@@ -54,8 +51,8 @@ public final class PhotoEditorViewController: UIViewController {
   public var hiddenControls : [control] = []
 
   var stickersVCIsVisible = false
-  var drawColor: UIColor = UIColor.black
-  var textColor: UIColor = UIColor.white
+  var drawColor: UIColor = .systemBackground
+  var textColor: UIColor = .label
   var isDrawing: Bool = false
   var lastPoint: CGPoint!
   var swiped = false
@@ -100,7 +97,7 @@ public final class PhotoEditorViewController: UIViewController {
 
   var colorPickerVisualEffectView: UIVisualEffectView {
     let view = UIVisualEffectView(frame: colorPickerView.bounds)
-    let blur = UIBlurEffect(style: .regular)
+    let blur = UIBlurEffect(style: .systemMaterial)
     view.effect = blur
     view.contentView.addSubview(colorsCollectionView)
     return view
@@ -124,7 +121,6 @@ public final class PhotoEditorViewController: UIViewController {
     textView.layer.shadowRadius = 1.0
     textView.layer.backgroundColor = UIColor.clear.cgColor
     textView.autocorrectionType = .no
-    textView.keyboardAppearance = .dark
     textView.isScrollEnabled = false
     textView.delegate = self
 
@@ -146,7 +142,11 @@ public final class PhotoEditorViewController: UIViewController {
     super.viewDidLoad()
     setImageView(image: image!)
 
+    imageView.layer.cornerRadius = 10
+
     deleteView.layer.cornerRadius = deleteView.bounds.height / 2
+    deleteView.layer.borderWidth = 1.5
+    deleteView.layer.borderColor = UIColor.systemRed.cgColor
     deleteView.clipsToBounds = true
 
     let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
@@ -202,15 +202,11 @@ public final class PhotoEditorViewController: UIViewController {
 
   func setImageView(image: UIImage) {
     imageView.image = image
-    let size = image.suitableSize(widthLimit: UIScreen.main.bounds.width)
-    imageViewHeightConstraint.constant = (size?.height)!
   }
 
   func hideToolbar(hide: Bool) {
     topToolbar.isHidden = hide
-    topGradient.isHidden = hide
     bottomToolbar.isHidden = hide
-    bottomGradient.isHidden = hide
   }
 }
 
