@@ -181,13 +181,13 @@
                     <rect key="frame" x="0.0" y="802" width="414" height="60"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ZRl-89-gRO">
-                            <rect key="frame" x="16" y="0.0" width="77" height="52"/>
+                            <rect key="frame" x="16" y="0.0" width="91" height="52"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mW4-Jz-sic">
-                                    <rect key="frame" x="0.0" y="0.0" width="31" height="52"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="38" height="52"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <size key="titleShadowOffset" width="1" height="0.0"/>
-                                    <state key="normal" image="arrow.down.to.line.alt" catalog="system">
+                                    <state key="normal" image="photo.on.rectangle" catalog="system">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.1532266695" colorSpace="calibratedRGB"/>
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="large" weight="regular"/>
@@ -197,11 +197,11 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kpe-Ez-Cio">
-                                    <rect key="frame" x="46" y="0.0" width="31" height="52"/>
+                                    <rect key="frame" x="53" y="0.0" width="38" height="52"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <size key="titleShadowOffset" width="1" height="0.0"/>
-                                    <state key="normal" image="square.stack.3d.up.slash" catalog="system">
+                                    <state key="normal" image="nosign" catalog="system">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.1532266695" colorSpace="calibratedRGB"/>
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="large" weight="medium"/>
@@ -296,13 +296,13 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow.down.to.line.alt" catalog="system" width="54" height="64"/>
         <image name="arrow.right.circle.fill" catalog="system" width="64" height="60"/>
         <image name="crop" catalog="system" width="64" height="60"/>
         <image name="link" catalog="system" width="64" height="58"/>
+        <image name="nosign" catalog="system" width="64" height="60"/>
+        <image name="photo.on.rectangle" catalog="system" width="64" height="48"/>
         <image name="scribble" catalog="system" width="64" height="54"/>
         <image name="smiley" catalog="system" width="64" height="60"/>
-        <image name="square.stack.3d.up.slash" catalog="system" width="64" height="60"/>
         <image name="textbox" catalog="system" width="64" height="44"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>
