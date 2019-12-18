@@ -1,11 +1,11 @@
-
 //
 //  CropRectView.swift
 //  CropViewController
 //
 //  Created by Guilherme Moura on 2/26/16.
 //  Copyright © 2016 Reefactor, Inc. All rights reserved.
-// Credit https://github.com/sprint84/PhotoCropEditor
+//
+//  Credit https://github.com/sprint84/PhotoCropEditor
 
 import UIKit
 
@@ -17,16 +17,19 @@ protocol CropRectViewDelegate: class {
 
 class CropRectView: UIView, ResizeControlDelegate {
   weak var delegate: CropRectViewDelegate?
+
   var showsGridMajor = true {
     didSet {
       setNeedsDisplay()
     }
   }
+
   var showsGridMinor = false {
     didSet {
       setNeedsDisplay()
     }
   }
+
   var keepAspectRatio = false {
     didSet {
       if keepAspectRatio {
@@ -172,10 +175,12 @@ class CropRectView: UIView, ResizeControlDelegate {
     var rect = frame
 
     if resizeControl == topEdgeView {
-      rect = CGRect(x: initialRect.minX,
-                    y: initialRect.minY + resizeControl.translation.y,
-                    width: initialRect.width,
-                    height: initialRect.height - resizeControl.translation.y)
+      rect = CGRect(
+        x: initialRect.minX,
+        y: initialRect.minY + resizeControl.translation.y,
+        width: initialRect.width,
+        height: initialRect.height - resizeControl.translation.y
+      )
 
       if keepAspectRatio {
         rect = constrainedRectWithRectBasisOfHeight(rect)
@@ -304,7 +309,9 @@ class CropRectView: UIView, ResizeControlDelegate {
     } else {
       height = width * fixedAspectRatio
     }
+
     result.size = CGSize(width: width, height: height)
+
     return result
   }
 

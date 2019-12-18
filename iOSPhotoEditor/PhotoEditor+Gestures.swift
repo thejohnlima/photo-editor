@@ -130,10 +130,7 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
   func scaleEffect(view: UIView) {
     view.superview?.bringSubviewToFront(view)
 
-    if #available(iOS 10.0, *) {
-      let generator = UIImpactFeedbackGenerator(style: .heavy)
-      generator.impactOccurred()
-    }
+    UIView.impactFeedback()
 
     let previouTransform =  view.transform
 
@@ -168,11 +165,7 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
     if let previousPoint = lastPanPoint {
       // View is going into deleteView
       if deleteView.frame.contains(pointToSuperView) && !deleteView.frame.contains(previousPoint) {
-        if #available(iOS 10.0, *) {
-          let generator = UIImpactFeedbackGenerator(style: .heavy)
-          generator.impactOccurred()
-        }
-
+        UIView.impactFeedback()
         UIView.animate(withDuration: 0.3, animations: {
           view.transform = view.transform.scaledBy(x: 0.25, y: 0.25)
           view.center = recognizer.location(in: self.canvasImageView)
@@ -199,8 +192,7 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
       if deleteView.frame.contains(point) { // Delete the view
         view.removeFromSuperview()
         if #available(iOS 10.0, *) {
-          let generator = UINotificationFeedbackGenerator()
-          generator.notificationOccurred(.success)
+          UIView.hapticFeedback(type: .success)
         }
       } else if !canvasImageView.bounds.contains(view.center) { // Snap the view back to canvasImageView
         UIView.animate(withDuration: 0.3, animations: {

@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     let picker = UIImagePickerController()
     picker.delegate = self
     picker.sourceType = .photoLibrary
+    picker.navigationBar.tintColor = .white
     present(picker, animated: true, completion: nil)
   }
 }

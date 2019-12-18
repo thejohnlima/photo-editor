@@ -40,7 +40,7 @@ class ResizeControl: UIView {
     backgroundColor = .clear
     isExclusiveTouch = true
 
-    let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ResizeControl.handlePan(_:)))
+    let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
     addGestureRecognizer(gestureRecognizer)
   }
 

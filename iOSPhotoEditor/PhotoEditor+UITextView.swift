@@ -21,16 +21,16 @@ extension PhotoEditorViewController: UITextViewDelegate {
 
   public func textViewDidBeginEditing(_ textView: UITextView) {
     isTyping = true
-    lastTextViewTransform =  textView.transform
+    lastTextViewTransform = textView.transform
     lastTextViewTransCenter = textView.center
     lastTextViewFont = textView.font
     activeTextView = textView
 
     textView.superview?.bringSubviewToFront(textView)
-    textView.font = .systemFont(ofSize: 30)
+    textView.font = .systemFont(ofSize: 36)
 
     UIView.animate(withDuration: 0.3, animations: {
-      textView.transform = CGAffineTransform.identity
+      textView.transform = .identity
       textView.center = CGPoint(x: UIScreen.main.bounds.width / 2, y:  UIScreen.main.bounds.height / 5)
     }, completion: nil)
   }

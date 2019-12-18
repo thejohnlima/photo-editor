@@ -86,11 +86,7 @@ public final class PhotoEditorViewController: UIViewController {
     collection.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     collection.showsHorizontalScrollIndicator = false
     collection.backgroundColor = .clear
-
-    collection.register(
-      UINib(nibName: "ColorCollectionViewCell", bundle: Bundle(for: ColorCollectionViewCell.self)),
-      forCellWithReuseIdentifier: "ColorCollectionViewCell"
-    )
+    collection.registerNib(ColorCollectionViewCell.self)
 
     return collection
   }
@@ -108,16 +104,17 @@ public final class PhotoEditorViewController: UIViewController {
       x: 0,
       y: canvasImageView.center.y,
       width: UIScreen.main.bounds.width,
-      height: 30
+      height: 44
     )
 
     let textView = UITextView(frame: frame)
     textView.textAlignment = .center
-    textView.font = .systemFont(ofSize: 32, weight: .medium)
+    textView.font = .systemFont(ofSize: 36, weight: .medium)
     textView.textColor = textColor
     textView.backgroundColor = .clear
     textView.tintColor = .label
     textView.autocorrectionType = .no
+    textView.keyboardAppearance = .dark
     textView.isScrollEnabled = false
     textView.delegate = self
 
@@ -127,7 +124,7 @@ public final class PhotoEditorViewController: UIViewController {
   // MARK: - Initializers
   public init() {
     let bundle = Bundle(for: PhotoEditorViewController.self)
-    super.init(nibName: "PhotoEditorViewController", bundle: bundle)
+    super.init(nibName: PhotoEditorViewController.identifier, bundle: bundle)
   }
 
   required init?(coder: NSCoder) {
@@ -142,7 +139,7 @@ public final class PhotoEditorViewController: UIViewController {
     imageView.layer.cornerRadius = 10
 
     deleteView.layer.cornerRadius = deleteView.bounds.height / 2
-    deleteView.layer.borderWidth = 1.5
+    deleteView.layer.borderWidth = 2
     deleteView.layer.borderColor = UIColor.systemRed.cgColor
     deleteView.clipsToBounds = true
 
@@ -172,7 +169,7 @@ public final class PhotoEditorViewController: UIViewController {
     configurePickerColors()
     hideControls()
 
-    stickersViewController = StickersViewController(nibName: "StickersViewController", bundle: bundle)
+    stickersViewController = StickersViewController(nibName: StickersViewController.identifier, bundle: bundle)
   }
 
   // MARK: - Overrides
@@ -214,6 +211,7 @@ extension PhotoEditorViewController: ColorDelegate {
       drawColor = color
     } else if activeTextView != nil {
       activeTextView?.textColor = color
+      activeTextView?.tintColor = color
       textColor = color
     }
   }
