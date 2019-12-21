@@ -135,41 +135,26 @@ public final class PhotoEditorViewController: UIViewController {
   override public func viewDidLoad() {
     super.viewDidLoad()
     setImageView(image: image!)
-
-    imageView.layer.cornerRadius = 10
-
-    deleteView.layer.cornerRadius = deleteView.bounds.height / 2
-    deleteView.layer.borderWidth = 2
-    deleteView.layer.borderColor = UIColor.systemRed.cgColor
-    deleteView.clipsToBounds = true
-
-    let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
-    edgePan.edges = .bottom
-    edgePan.delegate = self
-
-    view.addGestureRecognizer(edgePan)
-
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(keyboardDidShow),
-                                           name: UIResponder.keyboardDidShowNotification,
-                                           object: nil)
-
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(keyboardWillHide),
-                                           name: UIResponder.keyboardWillHideNotification,
-                                           object: nil)
-
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(keyboardWillChangeFrame(_:)),
-                                           name: UIResponder.keyboardWillChangeFrameNotification,
-                                           object: nil)
-
-    let bundle = Bundle(for: StickersViewController.self)
-
-    configurePickerColors()
+    setDeleteView()
+    setGestures()
+    setPickerColors()
+    setInitialSticker()
     hideControls()
 
-    stickersViewController = StickersViewController(nibName: StickersViewController.identifier, bundle: bundle)
+    stickersViewController = StickersViewController(
+      nibName: StickersViewController.identifier,
+      bundle: Bundle(for: StickersViewController.self)
+    )
+  }
+
+  public override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    addObervers()
+  }
+
+  public override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    removeObervers()
   }
 
   // MARK: - Overrides
@@ -180,7 +165,7 @@ public final class PhotoEditorViewController: UIViewController {
   }
 
   // MARK: - Internal Methods
-  func configurePickerColors() {
+  func setPickerColors() {
     colorsCollectionViewDelegate = ColorsCollectionViewDelegate()
     colorsCollectionViewDelegate.colorDelegate = self
 
@@ -196,11 +181,66 @@ public final class PhotoEditorViewController: UIViewController {
 
   func setImageView(image: UIImage) {
     imageView.image = image
+    imageView.layer.cornerRadius = 10
   }
 
   func hideToolbar(hide: Bool) {
     topToolbar.isHidden = hide
     bottomToolbar.isHidden = hide
+  }
+
+  // MARK: - Private Methods
+  private func setDeleteView() {
+    deleteView.layer.cornerRadius = deleteView.bounds.height / 2
+    deleteView.layer.borderWidth = 2
+    deleteView.layer.borderColor = UIColor.systemRed.cgColor
+    deleteView.clipsToBounds = true
+  }
+
+  private func setInitialSticker() {
+    let textView = self.textView
+    textView.text = Date().toText(.short)
+    textView.font = .systemFont(ofSize: 48, weight: .bold)
+    textView.frame.origin.y = canvasImageView.bounds.height * 0.7
+    textView.frame.size.height = 72
+    addGestures(view: textView)
+    canvasView.addSubview(textView)
+  }
+
+  private func setGestures() {
+    let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
+    edgePan.edges = .bottom
+    edgePan.delegate = self
+    view.addGestureRecognizer(edgePan)
+  }
+
+  private func addObervers() {
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(keyboardDidShow),
+      name: UIResponder.keyboardDidShowNotification,
+      object: nil
+    )
+
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(keyboardWillHide),
+      name: UIResponder.keyboardWillHideNotification,
+      object: nil
+    )
+
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(keyboardWillChangeFrame(_:)),
+      name: UIResponder.keyboardWillChangeFrameNotification,
+      object: nil
+    )
+  }
+
+  private func removeObervers() {
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
   }
 }
 

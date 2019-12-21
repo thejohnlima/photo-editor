@@ -20,6 +20,7 @@ public enum control {
 }
 
 extension PhotoEditorViewController {
+
   // MARK: - Actions
   @IBAction func cancelButtonTapped(_ sender: Any) {
     photoEditorDelegate?.canceledEditing()
