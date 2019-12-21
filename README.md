@@ -80,10 +80,10 @@ func canceledEditing() {
 }
 ```
 
-<img src="Assets/01.PNG" width="280"/>
-<img src="Assets/03.PNG" width="280"/>
-<img src="Assets/04.PNG" width="280"/>
-<img src="Assets/05.PNG" width="280"/>
+<img src="Assets/01.png" width="280"/>
+<img src="Assets/03.png" width="280"/>
+<img src="Assets/04.png" width="280"/>
+<img src="Assets/05.png" width="280"/>
 
 ## Live Demo appetize.io
 
