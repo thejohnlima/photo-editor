@@ -19,13 +19,13 @@ public final class PhotoEditorViewController: UIViewController {
 
   /// To hold the drawings and stickers
   @IBOutlet weak var canvasImageView: UIImageView!
+
   @IBOutlet weak var topToolbar: UIView!
   @IBOutlet weak var bottomToolbar: UIView!
   @IBOutlet weak var doneButton: UIButton!
   @IBOutlet weak var deleteView: UIView!
   @IBOutlet weak var colorPickerView: UIView!
-
-  // Controls
+  @IBOutlet weak var finishButton: UIButton!
   @IBOutlet weak var cropButton: UIButton!
   @IBOutlet weak var stickerButton: UIButton!
   @IBOutlet weak var drawButton: UIButton!
@@ -139,6 +139,7 @@ public final class PhotoEditorViewController: UIViewController {
     setGestures()
     setPickerColors()
     setInitialSticker()
+    setFinishButton()
     hideControls()
 
     stickersViewController = StickersViewController(
@@ -205,6 +206,11 @@ public final class PhotoEditorViewController: UIViewController {
     textView.frame.size.height = 72
     addGestures(view: textView)
     canvasView.addSubview(textView)
+  }
+
+  private func setFinishButton() {
+    finishButton.layer.cornerRadius = finishButton.bounds.height / 2
+    finishButton.layer.masksToBounds = true
   }
 
   private func setGestures() {

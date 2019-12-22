@@ -23,6 +23,7 @@
                 <outlet property="deleteView" destination="yAt-sK-1nK" id="0Jn-1A-WAT"/>
                 <outlet property="doneButton" destination="KxU-y4-Jwh" id="19z-FV-eWC"/>
                 <outlet property="drawButton" destination="Qm4-f6-DBr" id="yHl-a1-GgN"/>
+                <outlet property="finishButton" destination="wNH-TU-KxG" id="Wjz-TJ-4gw"/>
                 <outlet property="imageView" destination="5rw-9v-ExQ" id="5lP-en-DGc"/>
                 <outlet property="saveButton" destination="mW4-Jz-sic" id="1Uj-nU-EU1"/>
                 <outlet property="shareButton" destination="zlw-H0-WcJ" id="OZv-z0-8s8"/>
@@ -213,12 +214,17 @@
                             </subviews>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNH-TU-KxG">
-                            <rect key="frame" x="342" y="2.6666666666666288" width="56" height="54.666666666666664"/>
-                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="318" y="8" width="80" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="rbb-Tm-ipS"/>
+                                <constraint firstAttribute="height" constant="44" id="t8m-W4-A5Y"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <size key="titleShadowOffset" width="1" height="0.0"/>
-                            <state key="normal" image="arrow.right.circle.fill" catalog="system">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Done">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40" scale="large" weight="thin"/>
                             </state>
                             <connections>
@@ -296,7 +302,6 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow.right.circle.fill" catalog="system" width="64" height="60"/>
         <image name="crop" catalog="system" width="64" height="60"/>
         <image name="link" catalog="system" width="64" height="58"/>
         <image name="nosign" catalog="system" width="64" height="60"/>
