@@ -55,6 +55,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     let photoEditor = PhotoEditorViewController()
     photoEditor.photoEditorDelegate = self
     photoEditor.image = image
+    photoEditor.isInitialStickerEnable = true
 
     // Colors for drawing and Text, If not set default values will be used
     // photoEditor.colors = [.red, .blue, .green]

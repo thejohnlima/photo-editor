@@ -11,7 +11,7 @@ import UIKit
 public final class PhotoEditorViewController: UIViewController {
 
   // MARK: - Properties
-  /** holding the 2 imageViews original image and drawing & stickers */
+  /// Holding the 2 imageViews original image and drawing & stickers
   @IBOutlet weak var canvasView: UIView!
 
   /// To hold the image
@@ -34,21 +34,18 @@ public final class PhotoEditorViewController: UIViewController {
   @IBOutlet weak var shareButton: UIButton!
   @IBOutlet weak var clearButton: UIButton!
 
-  public var image: UIImage?
-
-  /**
-   Array of Stickers -UIImage- that the user will choose from
-   */
+  /// Array of Stickers -UIImage- that the user will choose from
   public var stickers: [UIImage] = []
 
-  /**
-   Array of Colors that will show while drawing or typing
-   */
+  /// Array of Colors that will show while drawing or typing
   public var colors: [UIColor] = []
-  public var photoEditorDelegate: PhotoEditorDelegate?
 
-  /// list of controls to be hidden
+  /// List of controls to be hidden
   public var hiddenControls : [control] = []
+
+  public var image: UIImage?
+  public var isInitialStickerEnable = false
+  public var photoEditorDelegate: PhotoEditorDelegate?
 
   var stickersVCIsVisible = false
   var drawColor: UIColor = .label
@@ -199,11 +196,18 @@ public final class PhotoEditorViewController: UIViewController {
   }
 
   private func setInitialSticker() {
+    guard isInitialStickerEnable else { return }
+    let accessoryView = colorPickerVisualEffectView
+    accessoryView.frame.size.height = 48
+    accessoryView.frame.origin = .zero
+
     let textView = self.textView
-    textView.text = Date().toText(.short)
-    textView.font = .systemFont(ofSize: 48, weight: .bold)
+    textView.text = Date().toText(.medium)?.uppercased().replacingOccurrences(of: ",", with: "")
+    textView.font = .systemFont(ofSize: 48)
     textView.frame.origin.y = canvasImageView.bounds.height * 0.7
-    textView.frame.size.height = 72
+    textView.frame.size.height = 80
+    textView.inputAccessoryView = accessoryView
+
     addGestures(view: textView)
     canvasView.addSubview(textView)
   }
