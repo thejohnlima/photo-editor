@@ -220,7 +220,7 @@
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="rbb-Tm-ipS"/>
                                 <constraint firstAttribute="height" constant="44" id="t8m-W4-A5Y"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <size key="titleShadowOffset" width="1" height="0.0"/>
                             <state key="normal" title="Done">
