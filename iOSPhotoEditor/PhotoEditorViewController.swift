@@ -114,6 +114,11 @@ public final class PhotoEditorViewController: UIViewController {
     textView.keyboardAppearance = .dark
     textView.isScrollEnabled = false
     textView.delegate = self
+    textView.layer.masksToBounds = false
+    textView.layer.shadowOffset = CGSize(width: 0.5, height: 0)
+    textView.layer.rasterizationScale = UIScreen.main.scale
+    textView.layer.shadowRadius = 2.0
+    textView.layer.shadowOpacity = 0.5
 
     return textView
   }
@@ -168,7 +173,7 @@ public final class PhotoEditorViewController: UIViewController {
     colorsCollectionViewDelegate.colorDelegate = self
 
     if !colors.isEmpty {
-      colorsCollectionViewDelegate.colors = colors
+      colorsCollectionViewDelegate.color.colors = colors
     }
 
     colorPickerVisualEffectView.removeFromSuperview()
@@ -187,6 +192,19 @@ public final class PhotoEditorViewController: UIViewController {
     bottomToolbar.isHidden = hide
   }
 
+  func changeColor(_ textView: UITextView) {
+    let colors = Color().colors
+    var index = textView.tag + 1
+
+    if index >= colors.count {
+      index = 0
+    }
+
+    textView.textColor = colors[index]
+    textView.tintColor = colors[index]
+    textView.tag = index
+  }
+
   // MARK: - Private Methods
   private func setDeleteView() {
     deleteView.layer.cornerRadius = deleteView.bounds.height / 2
@@ -197,16 +215,13 @@ public final class PhotoEditorViewController: UIViewController {
 
   private func setInitialSticker() {
     guard isInitialStickerEnable else { return }
-    let accessoryView = colorPickerVisualEffectView
-    accessoryView.frame.size.height = 48
-    accessoryView.frame.origin = .zero
 
     let textView = self.textView
     textView.text = Date().toText(.medium)?.uppercased().replacingOccurrences(of: ",", with: "")
-    textView.font = .systemFont(ofSize: 48)
+    textView.font = .systemFont(ofSize: 48, weight: .medium)
     textView.frame.origin.y = canvasImageView.bounds.height * 0.7
     textView.frame.size.height = 80
-    textView.inputAccessoryView = accessoryView
+    textView.isEditable = false
 
     addGestures(view: textView)
     canvasView.addSubview(textView)

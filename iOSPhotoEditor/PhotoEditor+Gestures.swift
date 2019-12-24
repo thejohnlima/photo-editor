@@ -91,6 +91,9 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
             break
           }
         }
+      } else if let view = view as? UITextView {
+        scaleEffect(view: view)
+        changeColor(view)
       } else {
         scaleEffect(view: view)
       }
