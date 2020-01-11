@@ -33,6 +33,7 @@ public final class PhotoEditorViewController: UIViewController {
   @IBOutlet weak var saveButton: UIButton!
   @IBOutlet weak var shareButton: UIButton!
   @IBOutlet weak var clearButton: UIButton!
+  @IBOutlet weak var textStyleButton: UIButton!
 
   /// Array of Stickers -UIImage- that the user will choose from
   public var stickers: [UIImage] = []
@@ -142,6 +143,7 @@ public final class PhotoEditorViewController: UIViewController {
     setPickerColors()
     setInitialSticker()
     setFinishButton()
+    setTextStyleButton()
     hideControls()
 
     stickersViewController = StickersViewController(
@@ -230,6 +232,15 @@ public final class PhotoEditorViewController: UIViewController {
   private func setFinishButton() {
     finishButton.layer.cornerRadius = finishButton.bounds.height / 2
     finishButton.layer.masksToBounds = true
+  }
+
+  private func setTextStyleButton() {
+    textStyleButton.setTitle("STRONG", for: .normal)
+    textStyleButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+    textStyleButton.layer.borderColor = UIColor.white.cgColor
+    textStyleButton.layer.borderWidth = 1.5
+    textStyleButton.layer.cornerRadius = textStyleButton.bounds.height / 2
+    textStyleButton.layer.masksToBounds = true
   }
 
   private func setGestures() {
