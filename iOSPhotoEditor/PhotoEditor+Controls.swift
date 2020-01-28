@@ -8,8 +8,14 @@
 
 import UIKit
 
-// MARK: - Control
-public enum control {
+private var defaultFieldProperties: (font: UIFont?, size: CGSize)?
+
+private func getFontSize(_ textLength: Int, boundingBox: CGRect) -> CGFloat {
+  let area: CGFloat = boundingBox.width * boundingBox.height
+  return sqrt(area / CGFloat(textLength))
+}
+
+public enum Control {
   case crop
   case sticker
   case draw
@@ -17,6 +23,46 @@ public enum control {
   case save
   case share
   case clear
+}
+
+enum TextStyle {
+  case strong(width: CGFloat, field: AnyObject?)
+  case classic(width: CGFloat, field: AnyObject?)
+  case typer(width: CGFloat, field: AnyObject?)
+
+  var font: UIFont? {
+    switch self {
+    case .strong(let width, let object):
+      if let field = object as? UITextView, let superview = field.superview {
+        field.frame.size = CGSize(width: width, height: superview.bounds.height / 3)
+        field.center.x = superview.center.x
+        let fontSize = getFontSize(field.text.count, boundingBox: field.frame)
+        return UIFont(name: "Helvetica Neue Bold Italic", size: fontSize)
+      }
+      return defaultFieldProperties?.font
+    case .classic(_, let object):
+      if let field = object as? UITextView, let superview = field.superview {
+        field.frame.size = defaultFieldProperties?.size ?? .zero
+      }
+      return defaultFieldProperties?.font
+    case .typer(_, let object):
+      if let field = object as? UITextView, let superview = field.superview {
+        field.frame.size = defaultFieldProperties?.size ?? .zero
+      }
+      return defaultFieldProperties?.font
+    }
+  }
+
+  var title: String? {
+    switch self {
+    case .strong:
+      return "Strong"
+    case .classic:
+      return "Classic"
+    case .typer:
+      return "Typer"
+    }
+  }
 }
 
 extension PhotoEditorViewController {
@@ -55,9 +101,15 @@ extension PhotoEditorViewController {
     let textView = self.textView
     textView.inputAccessoryView = accessoryView
 
+    textStyleButton.tag = 1
+
     isTyping = true
     canvasImageView.addSubview(textView)
     addGestures(view: textView)
+    prepareStyle(textStyleButton)
+
+    defaultFieldProperties?.font = textView.font
+    defaultFieldProperties?.size = textView.frame.size
 
     textView.becomeFirstResponder()
   }
@@ -100,7 +152,25 @@ extension PhotoEditorViewController {
     dismiss(animated: true)
   }
 
-  // MAKR: - Internal methods
+  @IBAction func changeTextStyle(_ sender: Any?) {
+    guard let button = sender as? UIButton else { return }
+
+    if button.tag == 3 {
+      button.tag = 1
+    } else {
+      button.tag += 1
+    }
+
+    prepareStyle(button)
+
+    let style = getTextStyle(button.tag)
+
+    if let font = style?.font {
+      activeTextView?.font = font
+    }
+  }
+
+  // MAKR: - Internal Methods
   @objc
   func image(_ image: UIImage, withPotentialError error: NSErrorPointer, contextInfo: UnsafeRawPointer) {
     let alert = UIAlertController(
@@ -131,5 +201,21 @@ extension PhotoEditorViewController {
         stickerButton.isHidden = true
       }
     }
+  }
+
+  func getTextStyle(_ fromTag: Int) -> TextStyle? {
+    switch fromTag {
+    case 2:
+      return .strong(width: UIScreen.main.bounds.width - 64, field: activeTextView)
+    case 3:
+      return .typer(width: activeTextView?.bounds.width ?? 0, field: activeTextView)
+    default:
+      return .classic(width: activeTextView?.bounds.width ?? 0, field: activeTextView)
+    }
+  }
+
+  private func prepareStyle(_ button: UIButton) {
+    let style = getTextStyle(button.tag)
+    button.setTitle(style?.title?.uppercased(), for: .normal)
   }
 }

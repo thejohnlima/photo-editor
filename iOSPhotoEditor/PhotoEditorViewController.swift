@@ -42,7 +42,7 @@ public final class PhotoEditorViewController: UIViewController {
   public var colors: [UIColor] = []
 
   /// List of controls to be hidden
-  public var hiddenControls : [control] = []
+  public var hiddenControls: [Control] = []
 
   public var image: UIImage?
   public var isInitialStickerEnable = false
