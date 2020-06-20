@@ -16,8 +16,9 @@ import UIKit
 public protocol PhotoEditorDelegate: AnyObject {
   /**
    - Parameter image: edited Image
+   - Parameter controller: current controller
    */
-  func doneEditing(image: UIImage)
+  func doneEditing(image: UIImage, controller: UIViewController)
 
   /**
    StickersViewController did Disappear

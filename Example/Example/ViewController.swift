@@ -31,8 +31,10 @@ class ViewController: UIViewController {
 
 // MARK: - PhotoEditorDelegate
 extension ViewController: PhotoEditorDelegate {
-  func doneEditing(image: UIImage) {
-    imageView.image = image
+  func doneEditing(image: UIImage, controller: UIViewController) {
+    controller.dismiss(animated: true) { [weak self] in
+      self?.imageView.image = image
+    }
   }
 
   func canceledEditing() {

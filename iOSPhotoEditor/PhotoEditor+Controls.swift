@@ -142,8 +142,7 @@ extension PhotoEditorViewController {
 
   @IBAction func continueButtonPressed(_ sender: Any) {
     let img = canvasView.toImage()
-    photoEditorDelegate?.doneEditing(image: img)
-    dismiss(animated: true)
+    photoEditorDelegate?.doneEditing(image: img, controller: self)
   }
 
   @IBAction func changeTextStyle(_ sender: Any?) {
