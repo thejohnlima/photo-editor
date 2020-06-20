@@ -27,31 +27,8 @@ public enum Control {
 
 enum TextStyle {
   case strong(width: CGFloat, field: AnyObject?)
-  case classic(width: CGFloat, field: AnyObject?)
-  case typer(width: CGFloat, field: AnyObject?)
-
-  var font: UIFont? {
-    switch self {
-    case .strong(let width, let object):
-      if let field = object as? UITextView, let superview = field.superview {
-        field.frame.size = CGSize(width: width, height: superview.bounds.height / 3)
-        field.center.x = superview.center.x
-        let fontSize = getFontSize(field.text.count, boundingBox: field.frame)
-        return UIFont(name: "Helvetica Neue Bold Italic", size: fontSize)
-      }
-      return defaultFieldProperties?.font
-    case .classic(_, let object):
-      if let field = object as? UITextView, let superview = field.superview {
-        field.frame.size = defaultFieldProperties?.size ?? .zero
-      }
-      return defaultFieldProperties?.font
-    case .typer(_, let object):
-      if let field = object as? UITextView, let superview = field.superview {
-        field.frame.size = defaultFieldProperties?.size ?? .zero
-      }
-      return defaultFieldProperties?.font
-    }
-  }
+  case classic
+  case typer
 
   var title: String? {
     switch self {
@@ -63,6 +40,23 @@ enum TextStyle {
       return "Typer"
     }
   }
+
+  var font: UIFont? {
+    switch self {
+    case .strong(let width, let object):
+      if let field = object as? UITextView, let superview = field.superview {
+        var frame = field.frame
+        frame.size = CGSize(width: width, height: superview.bounds.height / 7)
+        let fontSize = getFontSize(field.text.count, boundingBox: frame)
+        return UIFont(name: "Helvetica Neue Bold Italic", size: fontSize)
+      }
+      return defaultFieldProperties?.font
+    case .classic:
+      return .systemFont(ofSize: 36, weight: .medium)
+    case .typer:
+      return UIFont(name: "American Typewriter", size: 36)
+    }
+  }
 }
 
 extension PhotoEditorViewController {
@@ -70,7 +64,7 @@ extension PhotoEditorViewController {
   // MARK: - Actions
   @IBAction func cancelButtonTapped(_ sender: Any) {
     photoEditorDelegate?.canceledEditing()
-    self.dismiss(animated: true)
+    dismiss(animated: true)
   }
 
   @IBAction func cropButtonTapped(_ sender: UIButton) {
@@ -153,7 +147,7 @@ extension PhotoEditorViewController {
   }
 
   @IBAction func changeTextStyle(_ sender: Any?) {
-    guard let button = sender as? UIButton else { return }
+    guard let button = sender as? UIButton, activeTextView?.text.isEmpty == false else { return }
 
     if button.tag == 3 {
       button.tag = 1
@@ -165,8 +159,10 @@ extension PhotoEditorViewController {
 
     let style = getTextStyle(button.tag)
 
-    if let font = style?.font {
-      activeTextView?.font = font
+    if let style = style, activeTextView != nil {
+      activeTextView?.font = style.font
+      lastTextViewFont = style.font
+      textViewDidChange(activeTextView!)
     }
   }
 
@@ -206,11 +202,12 @@ extension PhotoEditorViewController {
   func getTextStyle(_ fromTag: Int) -> TextStyle? {
     switch fromTag {
     case 2:
-      return .strong(width: UIScreen.main.bounds.width - 64, field: activeTextView)
+      let width = UIScreen.main.bounds.width - 64
+      return .strong(width: width, field: activeTextView)
     case 3:
-      return .typer(width: activeTextView?.bounds.width ?? 0, field: activeTextView)
+      return .typer
     default:
-      return .classic(width: activeTextView?.bounds.width ?? 0, field: activeTextView)
+      return .classic
     }
   }
 

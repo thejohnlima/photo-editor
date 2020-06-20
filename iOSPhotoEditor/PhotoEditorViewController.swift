@@ -57,7 +57,7 @@ public final class PhotoEditorViewController: UIViewController {
   var lastPanPoint: CGPoint?
   var lastTextViewTransform: CGAffineTransform?
   var lastTextViewTransCenter: CGPoint?
-  var lastTextViewFont:UIFont?
+  var lastTextViewFont: UIFont?
   var activeTextView: UITextView?
   var imageViewToPan: UIImageView?
   var isTyping: Bool = false
@@ -203,7 +203,7 @@ public final class PhotoEditorViewController: UIViewController {
     }
 
     textView.textColor = colors[index]
-    textView.tintColor = colors[index]
+    textView.tintColor = textView.textColor
     textView.tag = index
   }
 
@@ -211,7 +211,7 @@ public final class PhotoEditorViewController: UIViewController {
   private func setDeleteView() {
     deleteView.layer.cornerRadius = deleteView.bounds.height / 2
     deleteView.layer.borderWidth = 2
-    deleteView.layer.borderColor = UIColor.systemRed.cgColor
+    deleteView.layer.borderColor = UIColor.white.cgColor
     deleteView.clipsToBounds = true
   }
 

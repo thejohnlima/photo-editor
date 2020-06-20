@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -269,7 +269,7 @@
                             <rect key="frame" x="8" y="8" width="48" height="48"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="36"/>
-                            <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                             <color key="shadowColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <size key="shadowOffset" width="1" height="0.0"/>
@@ -323,13 +323,13 @@
         </view>
     </objects>
     <resources>
-        <image name="crop" catalog="system" width="64" height="60"/>
-        <image name="link" catalog="system" width="64" height="58"/>
-        <image name="nosign" catalog="system" width="64" height="60"/>
-        <image name="photo.on.rectangle" catalog="system" width="64" height="48"/>
-        <image name="scribble" catalog="system" width="64" height="54"/>
-        <image name="smiley" catalog="system" width="64" height="60"/>
-        <image name="textbox" catalog="system" width="64" height="44"/>
-        <image name="xmark" catalog="system" width="64" height="56"/>
+        <image name="crop" catalog="system" width="128" height="122"/>
+        <image name="link" catalog="system" width="128" height="116"/>
+        <image name="nosign" catalog="system" width="128" height="121"/>
+        <image name="photo.on.rectangle" catalog="system" width="128" height="98"/>
+        <image name="scribble" catalog="system" width="128" height="109"/>
+        <image name="smiley" catalog="system" width="128" height="121"/>
+        <image name="textbox" catalog="system" width="128" height="91"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>

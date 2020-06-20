@@ -24,7 +24,9 @@ extension PhotoEditorViewController: UITextViewDelegate {
     lastTextViewTransform = textView.transform
     lastTextViewTransCenter = textView.center
     lastTextViewFont = textView.font
+
     activeTextView = textView
+    activeTextView?.tintColor = activeTextView?.textColor
 
     textView.superview?.bringSubviewToFront(textView)
 

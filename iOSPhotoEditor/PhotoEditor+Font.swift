@@ -25,3 +25,27 @@ extension PhotoEditorViewController {
     }
   }
 }
+
+extension UIFont {
+  /// Returns a new font with the weight specified
+  /// - Parameter weight: The new font weight
+  func withWeight(_ weight: UIFont.Weight) -> UIFont {
+    let newDescriptor = fontDescriptor.addingAttributes([.traits: [
+      UIFontDescriptor.TraitKey.weight: weight]
+    ])
+    return UIFont(descriptor: newDescriptor, size: pointSize)
+  }
+
+  func withTraits(traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
+    let descriptor = fontDescriptor.withSymbolicTraits(traits)
+    return UIFont(descriptor: descriptor!, size: 0)
+  }
+
+  func bold() -> UIFont {
+    return withTraits(traits: .traitBold)
+  }
+
+  func italic() -> UIFont {
+    return withTraits(traits: .traitItalic)
+  }
+}
